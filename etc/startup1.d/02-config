@@ -6,10 +6,10 @@ if [ -z "$DISCOURSE_SMTP_ADDRESS" ] || [ -z "$DISCOURSE_DEVELOPER_EMAILS" ]; the
   exit 1
 fi
 
-tail -qf /opt/discourse/log/production.log &
-touch /opt/discourse/config/discourse.conf
-chown discourse:discourse /opt/discourse/config/discourse.conf
+tail -qf /app/discourse/log/production.log &
+touch /app/discourse/config/discourse.conf
+chown discourse:discourse /app/discourse/config/discourse.conf
 for v in $(printenv | grep -P '^DISCOURSE_' | grep -vE '^DISCOURSE_(VERSION|HOME|DATA)'); do
   echo $v | sed -r 's/^DISCOURSE_([^=]+)(.*)/\L\1\E\2/' >> \
-    /opt/discourse/config/discourse.conf
+    /app/discourse/config/discourse.conf
 done

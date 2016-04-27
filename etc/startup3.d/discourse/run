@@ -6,7 +6,7 @@ if [ -f /etc/startup3.d/discourse/supervise/error ]; then
   sleep 36864
 fi
 
-cd /opt/discourse
+cd /app/discourse
 chpst -u discourse:discourse config/unicorn_launcher \
   -E production -c config/unicorn.conf.rb &
 

@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-cd /opt/discourse
+cd /app/discourse
 for c in tmp:create db:migrate assets:precompile assets:clean uploads:clean_up avatars:clean; do
   count=0; while [ "$count" -lt 4 ]; do
     set +e

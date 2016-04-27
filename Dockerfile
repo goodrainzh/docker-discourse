@@ -1,7 +1,14 @@
 FROM ubuntu:14.04
 MAINTAINER zhouyq@goodrain.com
 
-ENV GOSU_VERSION 1.7
+ENV  GOSU_VERSION 1.7
+ENV  GOSU_BIN="gosu rain"
+ENV  APP_DIR="/app/discourse"
+ENV  PERMANENT_DIR="/data"
+ENV  RAILS_ENV="production"
+ENV  UNICORN_WORKERS=3
+ENV  UNICORN_SIDEKIQS=1
+ENV  RUBY_GC_MALLOC_LIMIT=40000000
 
 # set timezone
 RUN echo "Asia/Shanghai" > /etc/timezone;dpkg-reconfigure -f noninteractive tzdata
@@ -14,7 +21,7 @@ RUN echo 'APT::Install-Recommends 0;' >> /etc/apt/apt.conf.d/01norecommends \
  && libreadline6-dev build-essential libxslt1-dev libxml2-dev libpq-dev \
  && ruby-dev libxml2 libyaml-0-2 imagemagick libreadline6 \
  && libjpeg-turbo-progs postgresql-client ghostscript libxslt1.1 gifsicle \
- && jhead ruby git nodejs 
+ && jhead ruby git nodejs advancecomp jhead jpegoptim libjpeg-progs optipng
  && rm -rf /var/lib/apt/lists/*
  
 # install gosu
@@ -28,7 +35,12 @@ RUN set -x \
     && chmod +x /usr/local/bin/gosu \
     && gosu nobody true
 
+COPY build /tmp/build
 COPY usr /usr
 COPY etc /etc
+
+VOLUME /data
+
+EXPOSE 80
     
 ENTRYPOINT ["/usr/local/bin/startup"]

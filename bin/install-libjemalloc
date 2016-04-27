@@ -1,0 +1,9 @@
+#!/bin/bash
+
+VERSION=3.6.0
+
+mkdir /tmp/jemalloc && cd /tmp/jemalloc &&\
+      wget http://www.canonware.com/download/jemalloc/jemalloc-${VERSION}.tar.bz2 &&\
+      tar -xjf jemalloc-${VERSION}.tar.bz2 && cd jemalloc-${VERSION} && ./configure && make &&\
+      mv lib/libjemalloc.so.1 /usr/lib && cd / && rm -rf /tmp/jemalloc
+

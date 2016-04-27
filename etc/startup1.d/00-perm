@@ -2,4 +2,4 @@
 set -e
 
 chown -Rh discourse:discourse \
-  /opt/discourse
+  /app/discourse
