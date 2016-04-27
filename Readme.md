@@ -1,1 +1,1 @@
-# Dockerfile for ubuntu on Goodrain
+# Ubuntu dockerfile on Goodrain
