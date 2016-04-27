@@ -17,6 +17,9 @@ COPY build /tmp/build
 COPY usr /usr
 COPY etc /etc
 
+RUN chmod +x /tmp/build/* && \
+    /tmp/build/build.sh
+
 VOLUME /data
 
 EXPOSE 80
