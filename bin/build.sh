@@ -22,6 +22,7 @@ rm -rf /var/lib/apt/lists/*
 gem update --system
 gem install bundler
 
+/bin/bash /tmp/build/install-gosu
 /bin/bash /tmp/build/install-gifsicle
 /bin/bash /tmp/build/install-pngcrush
 /bin/bash /tmp/build/install-pngquant
