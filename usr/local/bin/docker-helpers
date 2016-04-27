@@ -1,0 +1,7 @@
+#!/bin/sh
+[ "$DEBUG" ] && set -x
+set -e
+
+for cmd in "$@"; do
+  docker-helper "$cmd"
+done

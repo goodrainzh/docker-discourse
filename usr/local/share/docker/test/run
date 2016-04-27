@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e
+# shellcheck disable=SC2046
+bats $(find /usr/local/share/docker/test/tests \
+  -type f -iname \*.bats)

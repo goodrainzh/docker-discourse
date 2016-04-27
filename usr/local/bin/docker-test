@@ -1,0 +1,14 @@
+#!/bin/sh
+[ "$DEBUG" ] && set -x
+set -e
+
+tput clear || true
+for v in "$@"; do
+  file="/usr/local/share/docker/test/$v"
+  if [ -f "$file" ]; then
+    "$file"
+  else
+    >&2 echo "Unable to find the test action."
+    exit 1
+  fi
+done

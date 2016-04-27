@@ -1,0 +1,38 @@
+#!/bin/sh
+[ "$DEBUG" ] && set -x
+set -e
+
+# ----------------------------------------------------------------------------
+# Take common dependencies and convert from apt to apk to reduce resistance.
+# @echo Nothing
+# @return 0
+# ----------------------------------------------------------------------------
+
+__sub_helpers_apk_convert_apt_dependencies_to_apk() {
+  cp .apt /tmp/.apt
+
+  sed -ri   's/^\s*libxslt1-dev/libxslt-dev/' /tmp/.apt
+  sed -ri 's/^\s*build-essential/build-base/' /tmp/.apt
+  sed -ri       's/^\s*libyaml-dev/yaml-dev/' /tmp/.apt
+  sed -ri               's/^\s*libyaml/yaml/' /tmp/.apt
+  mv /tmp/.apt .apk
+}
+
+# ----------------------------------------------------------------------------
+# Searches for `.apk` or `.apt` and installs or converts and installs.
+# @echo Warning if `.apt`
+# @return 0
+# ----------------------------------------------------------------------------
+
+install_from_apk_file() {
+  if [ "$1" = "apk" ] || [ -f ".apk" ]; then
+    sudo touch /etc/apk/ran-user-install
+    sudo apk --no-progress --update add "$(cat .apk)"
+    docker-helper cleanup
+
+  elif [ -f ".apt" ]; then
+    __sub_helpers_apk_convert_apt_dependencies_to_apk
+    install_from_apk_file \
+      "apk"
+  fi
+}

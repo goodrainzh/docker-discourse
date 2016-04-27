@@ -9,7 +9,12 @@ RUN echo "Asia/Shanghai" > /etc/timezone;dpkg-reconfigure -f noninteractive tzda
 RUN echo 'APT::Install-Recommends 0;' >> /etc/apt/apt.conf.d/01norecommends \
  && echo 'APT::Install-Suggests 0;' >> /etc/apt/apt.conf.d/01norecommends \
  && apt-get update \
- && apt-get install -y vim.tiny wget sudo net-tools ca-certificates unzip runit \
+ && apt-get install -y --no-install-recommends vim.tiny wget sudo net-tools \
+ && ca-certificates unzip runit libffi-dev libssl-dev libyaml-dev \
+ && libreadline6-dev build-essential libxslt1-dev libxml2-dev libpq-dev \
+ && ruby-dev libxml2 libyaml-0-2 imagemagick libreadline6 \
+ && libjpeg-turbo-progs postgresql-client ghostscript libxslt1.1 gifsicle \
+ && jhead ruby git nodejs 
  && rm -rf /var/lib/apt/lists/*
  
 # install gosu
@@ -22,5 +27,8 @@ RUN set -x \
     && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
     && chmod +x /usr/local/bin/gosu \
     && gosu nobody true
+
+COPY usr /usr
+COPY etc /etc
     
 ENTRYPOINT ["/usr/local/bin/startup"]
