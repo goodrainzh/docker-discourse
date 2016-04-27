@@ -11,10 +11,12 @@ export DISCOURSE_URL="https://github.com/discourse/discourse/archive/v${DISCOURS
 DEVELOP_PACKAGES="libffi-dev libssl-dev libyaml-dev libreadline6-dev build-essential libxslt1-dev libxml2-dev libpq-dev ruby-dev"
 PACKAGES="libxml2 libyaml-0-2 imagemagick libreadline6 libjpeg-turbo-progs postgresql-client ghostscript libxslt1.1 jhead ruby git"
 
+echo 'APT::Install-Recommends 0;' >> /etc/apt/apt.conf.d/01norecommends && \
+echo 'APT::Install-Suggests 0;' >> /etc/apt/apt.conf.d/01norecommends && \ 
 apt-get update && \
 apt-get install -y --no-install-recommends vim.tiny wget sudo net-tools && \
     ca-certificates unzip runit nodejs advancecomp jpegoptim libjpeg-progs optipng && \
-    $DEVELOP_PACKAGES $PACKAGES
+    $DEVELOP_PACKAGES $PACKAGES && \
 rm -rf /var/lib/apt/lists/*
 
 gem update --system
