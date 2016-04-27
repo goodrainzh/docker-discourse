@@ -1,1 +1,1 @@
-# Ubuntu dockerfile on Goodrain
+# discourse dockerfile on Goodrain
