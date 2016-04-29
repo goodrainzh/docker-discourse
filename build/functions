@@ -11,46 +11,49 @@ function system_init() {
   do
     [ ! -d $dir ] && mkdir -p $dir
   done
+  
+  # set timezone
+  RUN echo "Asia/Shanghai" > /etc/timezone;dpkg-reconfigure -f noninteractive tzdata
 
 }
 
 # install_packages
-function install_packages() {
-echo 'APT::Install-Recommends 0;' >> /etc/apt/apt.conf.d/01norecommends && \
-echo 'APT::Install-Suggests 0;' >> /etc/apt/apt.conf.d/01norecommends
+  function install_packages() {
+  echo 'APT::Install-Recommends 0;' >> /etc/apt/apt.conf.d/01norecommends && \
+  echo 'APT::Install-Suggests 0;' >> /etc/apt/apt.conf.d/01norecommends
 
-apt-get update && \
-apt-get install -y --no-install-recommends vim.tiny wget sudo net-tools curl \
-    ca-certificates unzip runit nodejs advancecomp jpegoptim libjpeg-progs optipng \
-    $DEVELOP_PACKAGES $PACKAGES && \
-rm -rf /var/lib/apt/lists/*
+  apt-get update && \
+  apt-get install -y --no-install-recommends vim.tiny wget sudo net-tools curl \
+      ca-certificates unzip runit nodejs advancecomp jpegoptim libjpeg-progs optipng \
+      $DEVELOP_PACKAGES $PACKAGES && \
+  rm -rf /var/lib/apt/lists/*
 
-# TODO check when binary packages are ready (not yet)
-curl -sSL -o phantomjs-1.9.8-linux-x86_64.tar.bz2  https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2 &&\
-      tar -xjf phantomjs-1.9.8-linux-x86_64.tar.bz2 &&\
-      rm phantomjs-1.9.8-linux-x86_64.tar.bz2 &&\
-      cp phantomjs-1.9.8-linux-x86_64/bin/phantomjs /bin/phantomjs &&\
-      rm -fr phantomjs-1.9.8-linux-x86_64
+  # TODO check when binary packages are ready (not yet)
+  curl -sSL -o phantomjs-1.9.8-linux-x86_64.tar.bz2  https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2 &&\
+        tar -xjf phantomjs-1.9.8-linux-x86_64.tar.bz2 &&\
+        rm phantomjs-1.9.8-linux-x86_64.tar.bz2 &&\
+        cp phantomjs-1.9.8-linux-x86_64/bin/phantomjs /bin/phantomjs &&\
+        rm -fr phantomjs-1.9.8-linux-x86_64
 }
 
 # install_gosu
 function install_gosu() {
 
-wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
-&& wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
-&& export GNUPGHOME="$(mktemp -d)" \
-&& gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
-&& gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
-&& rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
-&& chmod +x /usr/local/bin/gosu \
-&& gosu nobody true
+  wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
+  && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
+  && export GNUPGHOME="$(mktemp -d)" \
+  && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
+  && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
+  && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
+  && chmod +x /usr/local/bin/gosu \
+  && gosu nobody true
 
 }
 
 # install_libjemalloc
 function install_libjemalloc() {
 
-mkdir /tmp/jemalloc && cd /tmp/jemalloc &&\
+  mkdir /tmp/jemalloc && cd /tmp/jemalloc &&\
       wget http://www.canonware.com/download/jemalloc/jemalloc-${LIBJEMALLOC_VERSION}.tar.bz2 &&\
       tar -xjf jemalloc-${LIBJEMALLOC_VERSION}.tar.bz2 && cd jemalloc-${LIBJEMALLOC_VERSION} && ./configure && make &&\
       mv lib/libjemalloc.so.1 /usr/lib && cd / && rm -rf /tmp/jemalloc
@@ -60,51 +63,50 @@ mkdir /tmp/jemalloc && cd /tmp/jemalloc &&\
 # install_gifsicle
 function install_gifsicle() {
 
-cd /tmp
-curl -O http://www.lcdf.org/gifsicle/gifsicle-${GIFSICLE_VERSION}.tar.gz
-tar zxf gifsicle-${GIFSICLE_VERSION}.tar.gz
-cd gifsicle-${GIFSICLE_VERSION}
-./configure
-make install
-cd /
-rm -fr /tmp/gifsicle*
+  cd /tmp
+  curl -O http://www.lcdf.org/gifsicle/gifsicle-${GIFSICLE_VERSION}.tar.gz
+  tar zxf gifsicle-${GIFSICLE_VERSION}.tar.gz
+  cd gifsicle-${GIFSICLE_VERSION}
+  ./configure
+  make install
+  cd /
+  rm -fr /tmp/gifsicle*
 
 }
 
 # install_pngcrush
 function install_pngcrush() {
 
-cd /tmp
-curl -O http://iweb.dl.sourceforge.net/project/pmt/pngcrush/$PNGCRUSH_VERSION/pngcrush-$PNGCRUSH_VERSION.tar.gz
-tar zxf pngcrush-$PNGCRUSH_VERSION.tar.gz
-cd pngcrush-$PNGCRUSH_VERSION
-make && cp -f pngcrush /usr/local/bin
-cd /
-rm -fr /tmp/pngcrush-$PNGCRUSH_VERSION
-rm /tmp/pngcrush-$PNGCRUSH_VERSION.tar.gz
+  cd /tmp
+  curl -O http://iweb.dl.sourceforge.net/project/pmt/pngcrush/$PNGCRUSH_VERSION/pngcrush-$PNGCRUSH_VERSION.tar.gz
+  tar zxf pngcrush-$PNGCRUSH_VERSION.tar.gz
+  cd pngcrush-$PNGCRUSH_VERSION
+  make && cp -f pngcrush /usr/local/bin
+  cd /
+  rm -fr /tmp/pngcrush-$PNGCRUSH_VERSION
+  rm /tmp/pngcrush-$PNGCRUSH_VERSION.tar.gz
 
 }
 
 # install_pngquant
 function install_pngquant() {
 
-PNGQUANT_VERSION=2.4.1
-cd /tmp
-wget https://github.com/pornel/pngquant/archive/${PNGQUANT_VERSION}.tar.gz
-tar zxf ${PNGQUANT_VERSION}.tar.gz
-cd pngquant-${PNGQUANT_VERSION}
-./configure
-make && make install
-cd /
-rm -fr /tmp/pngq*
-rm -fr /tmp/${PNGQUANT_VERSION}*
+  cd /tmp
+  wget https://github.com/pornel/pngquant/archive/${PNGQUANT_VERSION}.tar.gz
+  tar zxf ${PNGQUANT_VERSION}.tar.gz
+  cd pngquant-${PNGQUANT_VERSION}
+  ./configure
+  make && make install
+  cd /
+  rm -fr /tmp/pngq*
+  rm -fr /tmp/${PNGQUANT_VERSION}*
 
 }
 
 # install_ruby
 function install_ruby() {
 
-add-apt-repository ppa:ubuntu-toolchain-r/test &&\
+  add-apt-repository ppa:ubuntu-toolchain-r/test &&\
     apt-get update &&\
     apt-get install -y gcc-4.9 &&\
     (cd /usr/bin && rm gcc && ln -s gcc-4.9 gcc) &&\
@@ -122,34 +124,34 @@ add-apt-repository ppa:ubuntu-toolchain-r/test &&\
 # install_discourse
 function install_discourse() {
 
-groupadd -rg 200 discourse
-useradd  -u  200 -g 200 -rMd /home/discourse discourse
+  groupadd -rg 200 discourse
+  useradd  -u  200 -g 200 -rMd /home/discourse discourse
 
-mkdir /app && chown discourse:discourse /app -R && cd /app
+  mkdir /app && chown discourse:discourse /app -R && cd /app
 
-curl -sLS -o /app/discourse.tar.gz  $DISCOURSE_URL && \
-tar xzf /app/discourse.tar.gz && mv discourse-$DISCOURSE_VERSION discourse && \
-rm -rf /app/discourse.tar.gz
+  curl -sLS -o /app/discourse.tar.gz  $DISCOURSE_URL && \
+  tar xzf /app/discourse.tar.gz && mv discourse-$DISCOURSE_VERSION discourse && \
+  rm -rf /app/discourse.tar.gz
 
-cd /app/discourse
+  cd $APP_DIR
 
-export BUNDLE_ARGS="-j128 --without=development:test --enable-shared" && \
-bundle install
+  export BUNDLE_ARGS="-j128 --without=development:test --enable-shared" && \
+  bundle install
 
 
-chown -R discourse:discourse /app/discourse
+  chown -R discourse:discourse $APP_DIR
 
-[ ! -d /app/discourse/log ] && gosu discourse mkdir -pv /app/discourse/log
+  [ ! -d /app/discourse/log ] && gosu discourse mkdir -pv /app/discourse/log
 
-for f in production.log unicorn.stderr.log unicorn.stdout.log
-do
-  [ ! -f /app/discourse/log/$f ] && touch /app/discourse/log/$f
-done
+  for f in production.log unicorn.stderr.log unicorn.stdout.log
+  do
+    [ ! -f /app/discourse/log/$f ] && touch /app/discourse/log/$f
+  done
 
-chown discourse.discourse /app/discourse/log/*
+  chown discourse.discourse /app/discourse/log/*
 
-for c in assets:precompile assets:clean uploads:clean_up avatars:clean; do
-  count=0; while [ "$count" -lt 4 ]; do
+  for c in assets:precompile assets:clean uploads:clean_up avatars:clean; do
+    count=0; while [ "$count" -lt 4 ]; do
     set +e
     count=$(echo "$(($count+1))")
     if [ $count -gt 1 ]; then

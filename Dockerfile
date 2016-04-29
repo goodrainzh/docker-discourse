@@ -10,23 +10,13 @@ ENV  UNICORN_WORKERS=3
 ENV  UNICORN_SIDEKIQS=1
 ENV  RUBY_GC_MALLOC_LIMIT=40000000
 
-# set timezone
-RUN echo "Asia/Shanghai" > /etc/timezone;dpkg-reconfigure -f noninteractive tzdata
-
-COPY build /tmp/build
+COPY build $BUILD_DIR
 COPY usr /usr
 COPY etc /etc
 
-RUN /tmp/build/install-packages
-RUN /tmp/build/install-ruby
-RUN /tmp/build/install-discourse
-RUN /tmp/build/install-gosu
-RUN /tmp/build/install-libjemalloc
-RUN /tmp/build/install-pngcrush
-RUN /tmp/build/install-gifsicle
-RUN /tmp/build/install-pngquant
+RUN $BUILD_DIR/build.sh
 
-VOLUME /data
+VOLUME $PERMANENT_DIR
 
 EXPOSE 80
     
