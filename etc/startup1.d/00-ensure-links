@@ -1,0 +1,29 @@
+#!/bin/sh
+set -e
+
+Dirs="public log"
+PermanentDir="/data"
+AppDir="/app/discourse"
+
+
+# 在持久化存储中创建需要的目录
+for d in $Dirs
+do
+  # 检测是否包含子目录
+  subdir=`dirname $d`
+
+  if [ ! -d ${PermanentDir}/${d} ] ;then
+  
+    if [ "$subdir" == "." ];then
+      [ -d ${AppDir}/${d} ] && mv ${AppDir}/${d} ${PermanentDir}/${d} || mkdir -pv ${PermanentDir}/${d}
+    else
+      [ ! -d ${PermanentDir}/$subdir ] && mkdir -pv ${PermanentDir}/$subdir
+      [ -d ${AppDir}/${d} ] && mv ${AppDir}/${d} ${PermanentDir}/$subdir
+    fi
+  
+  else
+    mv ${AppDir}/${d} ${AppDir}/${d}.bak
+  fi
+  ln -s ${PermanentDir}/${d} ${AppDir}/${d}
+done
+

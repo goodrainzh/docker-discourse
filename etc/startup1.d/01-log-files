@@ -3,6 +3,6 @@ set -e
 
 for v in production unicorn.stderr unicorn.stdout; do
   touch /app/discourse/log/${v}.log
-  chown discourse:discourse \
-    /app/discourse/log/$v.log
+  chown discourse:discourse /app/discourse/log/$v.log
+  ln -s /app/discourse/log/${v}.log /etc/stdout.d/${v}.log
 done

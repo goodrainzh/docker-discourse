@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e
+
+[ $DEBUG ] && set -x
+
+[ -f /tmp/build/env ] && source /tmp/build/env
+
+
+echo 'APT::Install-Recommends 0;' >> /etc/apt/apt.conf.d/01norecommends && \
+echo 'APT::Install-Suggests 0;' >> /etc/apt/apt.conf.d/01norecommends
+
+apt-get update && \
+apt-get install -y --no-install-recommends vim.tiny wget sudo net-tools curl \
+    ca-certificates unzip runit nodejs advancecomp jpegoptim libjpeg-progs optipng \
+    $DEVELOP_PACKAGES $PACKAGES && \
+rm -rf /var/lib/apt/lists/*
+
+# TODO check when binary packages are ready (not yet)
+curl -sSL -o phantomjs-1.9.8-linux-x86_64.tar.bz2  https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2 &&\
+      tar -xjf phantomjs-1.9.8-linux-x86_64.tar.bz2 &&\
+      rm phantomjs-1.9.8-linux-x86_64.tar.bz2 &&\
+      cp phantomjs-1.9.8-linux-x86_64/bin/phantomjs /bin/phantomjs &&\
+      rm -fr phantomjs-1.9.8-linux-x86_64
