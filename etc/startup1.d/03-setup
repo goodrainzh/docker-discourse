@@ -1,21 +1,27 @@
-#!/bin/sh
+#!/bin/bash
+[ $DEBUG ] && set -x
 set -e
 
 cd /app/discourse
-for c in tmp:create db:migrate; do
-  count=0; while [ "$count" -lt 4 ]; do
-    set +e
+if [ ! -f /data/inited ];then
+  for c in tmp:create db:migrate assets:precompile assets:clean uploads:clean_up avatars:clean; do
+    count=0; while [ "$count" -lt 4 ]; do
+        set +e
     count=$(echo "$(($count+1))")
     if [ $count -gt 1 ]; then
       printf "\nRetrying\n"
     fi
-
+    
     gosu discourse rake "$c" && break
     set -e
     sleep 6
-  done
+    done
 
-  if [ "$count" -gt 3 ]; then
-    exit 1
-  fi
-done
+    if [ "$count" -gt 3 ]; then
+      exit 1
+    fi
+  done
+  mv /app/discourse/tmp /data/ && ln -s /data/tmp /app/discourse/tmp && touch /data/inited
+else
+  ln -s /data/tmp /app/discourse/tmp
+fi

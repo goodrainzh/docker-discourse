@@ -23,3 +23,5 @@ install_pngquant
 install_ruby
 
 install_discourse
+
+install_nginx

@@ -15,6 +15,7 @@ COPY usr /usr
 COPY etc /etc
 
 RUN $BUILD_DIR/build.sh
+RUN $BUILD_DIR/cleanup
 
 VOLUME $PERMANENT_DIR
 

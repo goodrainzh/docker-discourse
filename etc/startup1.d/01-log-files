@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+[ $DEBUG ] && set -x
 set -e
 
 for v in production unicorn.stderr unicorn.stdout; do

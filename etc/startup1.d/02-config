@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+[ $DEBUG ] && set -x
 set -e
 
 if [ -z "$DISCOURSE_SMTP_ADDRESS" ] || [ -z "$DISCOURSE_DEVELOPER_EMAILS" ]; then

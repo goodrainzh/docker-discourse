@@ -1,0 +1,13 @@
+/var/log/nginx/*.log {
+    daily
+    missingok
+    rotate 14
+    compress
+    delaycompress
+    notifempty
+    create 0640 discourse discourse
+    sharedscripts
+    postrotate
+      sv 1 nginx
+    endscript
+}
