@@ -24,7 +24,7 @@ function system_init() {
       ca-certificates unzip runit nodejs advancecomp jpegoptim libjpeg-progs optipng \
       $DEVELOP_PACKAGES $PACKAGES
       
-  apt-get install nginx -y
+  apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y nginx
   
   rm -rf /var/lib/apt/lists/*
 
