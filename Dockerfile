@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 MAINTAINER zhouyq@goodrain.com
 
 RUN echo "Asia/Shanghai" > /etc/timezone;dpkg-reconfigure -f noninteractive tzdata
-RUN groupadd -r -g 200 discourse && useradd -r -u 200 -g discourse discourse
+RUN groupadd -r -g 200 discourse && useradd -rM -u 200 -d /home/discourse -g discourse discourse
 
 ENV  GOSU_BIN="gosu discourse"
 ENV  APP_DIR="/app/discourse"
