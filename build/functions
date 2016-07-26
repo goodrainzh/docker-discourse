@@ -12,9 +12,6 @@ function system_init() {
     [ ! -d $dir ] && mkdir -p $dir
   done
   
-  # set timezone
-  echo "Asia/Shanghai" > /etc/timezone;dpkg-reconfigure -f noninteractive tzdata
-
 }
 
 # install_packages
@@ -42,7 +39,7 @@ function system_init() {
 function install_gosu() {
 
   wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
-  && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
+  && wget -q -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
   && export GNUPGHOME="$(mktemp -d)" \
   && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
   && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
@@ -56,9 +53,9 @@ function install_gosu() {
 function install_libjemalloc() {
 
   mkdir /tmp/jemalloc && cd /tmp/jemalloc &&\
-      wget http://www.canonware.com/download/jemalloc/jemalloc-${LIBJEMALLOC_VERSION}.tar.bz2 &&\
-      tar -xjf jemalloc-${LIBJEMALLOC_VERSION}.tar.bz2 && cd jemalloc-${LIBJEMALLOC_VERSION} && ./configure && make &&\
-      mv lib/libjemalloc.so.1 /usr/lib && cd / && rm -rf /tmp/jemalloc
+  wget -q https://github.com/goodrain-apps/docker-discourse/releases/download/package/jemalloc-${LIBJEMALLOC_VERSION}.tar.bz2 &&\
+  tar -xjf jemalloc-${LIBJEMALLOC_VERSION}.tar.bz2 && cd jemalloc-${LIBJEMALLOC_VERSION} && ./configure && make &&\
+  mv lib/libjemalloc.so.1 /usr/lib && cd / && rm -rf /tmp/jemalloc
 
 }
 
@@ -66,7 +63,7 @@ function install_libjemalloc() {
 function install_gifsicle() {
 
   cd /tmp
-  curl -O http://www.lcdf.org/gifsicle/gifsicle-${GIFSICLE_VERSION}.tar.gz
+  wget -q https://github.com/goodrain-apps/docker-discourse/releases/download/package/gifsicle-${GIFSICLE_VERSION}.tar.gz
   tar zxf gifsicle-${GIFSICLE_VERSION}.tar.gz
   cd gifsicle-${GIFSICLE_VERSION}
   ./configure
@@ -80,7 +77,7 @@ function install_gifsicle() {
 function install_pngcrush() {
 
   cd /tmp
-  curl -O http://jaist.dl.sourceforge.net/project/pmt/pngcrush/${PNGCRUSH_VERSION}/pngcrush-${PNGCRUSH_VERSION}.tar.gz
+  wget -q https://github.com/goodrain-apps/docker-discourse/releases/download/package/pngcrush-${PNGCRUSH_VERSION}.tar.gz
   tar zxf pngcrush-$PNGCRUSH_VERSION.tar.gz
   cd pngcrush-$PNGCRUSH_VERSION
   make && cp -f pngcrush /usr/local/bin
@@ -94,7 +91,7 @@ function install_pngcrush() {
 function install_pngquant() {
 
   cd /tmp
-  wget https://github.com/pornel/pngquant/archive/${PNGQUANT_VERSION}.tar.gz
+  wget -q https://github.com/goodrain-apps/docker-discourse/releases/download/package/pngquant-${PNGQUANT_VERSION}.tar.gz
   tar zxf ${PNGQUANT_VERSION}.tar.gz
   cd pngquant-${PNGQUANT_VERSION}
   ./configure
