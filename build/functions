@@ -92,6 +92,8 @@ function install_pngcrush() {
 
 # install_pngquant
 function install_pngquant() {
+  
+  sleep 2000
 
   cd /tmp
   wget -q https://github.com/goodrain-apps/docker-discourse/releases/download/package/pngquant-${PNGQUANT_VERSION}.tar.gz
