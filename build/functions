@@ -93,11 +93,9 @@ function install_pngcrush() {
 # install_pngquant
 function install_pngquant() {
   
-  sleep 2000
-
   cd /tmp
   wget -q https://github.com/goodrain-apps/docker-discourse/releases/download/package/pngquant-${PNGQUANT_VERSION}.tar.gz
-  tar zxf ${PNGQUANT_VERSION}.tar.gz
+  tar zxf pngquant-${PNGQUANT_VERSION}.tar.gz
   cd pngquant-${PNGQUANT_VERSION}
   ./configure
   make && make install
@@ -127,9 +125,6 @@ function install_ruby() {
 
 # install_discourse
 function install_discourse() {
-
-  groupadd -rg 200 discourse
-  useradd  -u  200 -g 200 -rMd /home/discourse discourse
 
   mkdir /app && chown discourse:discourse /app -R && cd /app
 
