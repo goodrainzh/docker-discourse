@@ -80,7 +80,7 @@ function install_gifsicle() {
 function install_pngcrush() {
 
   cd /tmp
-  curl -O http://iweb.dl.sourceforge.net/project/pmt/pngcrush/$PNGCRUSH_VERSION/pngcrush-$PNGCRUSH_VERSION.tar.gz
+  curl -O http://jaist.dl.sourceforge.net/project/pmt/pngcrush/${PNGCRUSH_VERSION}/pngcrush-${PNGCRUSH_VERSION}.tar.gz
   tar zxf pngcrush-$PNGCRUSH_VERSION.tar.gz
   cd pngcrush-$PNGCRUSH_VERSION
   make && cp -f pngcrush /usr/local/bin
