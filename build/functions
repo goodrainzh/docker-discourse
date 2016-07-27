@@ -21,7 +21,7 @@ function system_init() {
 
   apt-get update && \
   apt-get install -y --no-install-recommends vim.tiny wget sudo net-tools curl \
-      ca-certificates unzip runit npm advancecomp jpegoptim libjpeg-progs optipng \
+      ca-certificates unzip runit advancecomp jpegoptim libjpeg-progs optipng \
       $DEVELOP_PACKAGES $PACKAGES
       
   curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash -
