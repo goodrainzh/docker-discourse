@@ -126,7 +126,7 @@ function install_ruby() {
 # install_discourse
 function install_discourse() {
 
-  mkdir /opt && cd /opt
+  mkdir -p /opt && cd /opt
 
   curl -sLS -o /opt/discourse.tar.gz  $DISCOURSE_URL && \
   tar xzf /opt/discourse.tar.gz && mv discourse-$DISCOURSE_VERSION discourse && \
