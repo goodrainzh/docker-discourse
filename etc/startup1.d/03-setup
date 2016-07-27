@@ -15,7 +15,7 @@ if [ ! -f /data/inited ];then
       printf "\nRetrying\n"
     fi
     
-    gosu discourse rake "$c" && break
+    rake "$c" && break
     set -e
     sleep 6
     done
