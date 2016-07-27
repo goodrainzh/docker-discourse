@@ -21,7 +21,7 @@ function system_init() {
 
   apt-get update && \
   apt-get install -y --no-install-recommends vim.tiny wget sudo net-tools curl \
-      ca-certificates unzip runit nodejs advancecomp jpegoptim libjpeg-progs optipng \
+      ca-certificates unzip runit nodejs npm advancecomp jpegoptim libjpeg-progs optipng \
       $DEVELOP_PACKAGES $PACKAGES && \
   npm install uglify-js -g &&\
   npm install svgo -g
@@ -31,13 +31,11 @@ function system_init() {
   rm -rf /var/lib/apt/lists/*
 
   # TODO check when binary packages are ready (not yet)
-  curl -sSL --connect-timeout 3 --max-time 10  --retry 5 --retry-delay 0 --retry-max-time 20 \
-       -o phantomjs-1.9.8-linux-x86_64.tar.bz2  \
-       https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2 &&\
-        tar -xjf phantomjs-1.9.8-linux-x86_64.tar.bz2 &&\
-        rm phantomjs-1.9.8-linux-x86_64.tar.bz2 &&\
-        cp phantomjs-1.9.8-linux-x86_64/bin/phantomjs /bin/phantomjs &&\
-        rm -fr phantomjs-1.9.8-linux-x86_64
+  wget -q https://github.com/goodrain-apps/docker-discourse/releases/download/package/phantomjs-1.9.8-linux-x86_64.tar.bz2 && \
+      tar -xjf phantomjs-1.9.8-linux-x86_64.tar.bz2 &&\
+      rm phantomjs-1.9.8-linux-x86_64.tar.bz2 &&\
+      cp phantomjs-1.9.8-linux-x86_64/bin/phantomjs /bin/phantomjs &&\
+      rm -fr phantomjs-1.9.8-linux-x86_64
 }
 
 # install_gosu
