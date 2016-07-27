@@ -39,7 +39,7 @@ RUN $BUILD_DIR/build.sh install_nginx
 
 RUN $BUILD_DIR/cleanup
 
-VOLUME $PERMANENT_DIR
+VOLUME /data
 
 EXPOSE 80
     
