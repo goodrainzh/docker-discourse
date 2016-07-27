@@ -7,9 +7,9 @@ if [ -f /etc/startup3.d/discourse/supervise/error ]; then
   sleep 36864
 fi
 
-cd /app/discourse
+cd /opt/discourse
 LD_PRELOAD=/usr/lib/libjemalloc.so.1
-HOME=/app/discourse
+HOME=/opt/discourse
 USER=discourse
 chpst -u discourse:discourse config/unicorn_launcher \
   -E production -c config/unicorn.conf.rb &

@@ -2,7 +2,7 @@
 [ $DEBUG ] && set -x
 set -e
 
-cd /app/discourse
+cd /opt/discourse
 if [ ! -f /data/inited ];then
   for c in tmp:create db:migrate assets:precompile assets:clean uploads:clean_up avatars:clean; do
     count=0; while [ "$count" -lt 4 ]; do
@@ -21,7 +21,5 @@ if [ ! -f /data/inited ];then
       exit 1
     fi
   done
-  mv /app/discourse/tmp /data/ && ln -s /data/tmp /app/discourse/tmp && touch /data/inited
-else
-  ln -s /data/tmp /app/discourse/tmp
+  touch /data/inited
 fi
