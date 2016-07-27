@@ -14,8 +14,6 @@ ENV  UNICORN_SIDEKIQS=1
 ENV  RUBY_GC_MALLOC_LIMIT=40000000
 
 COPY build $BUILD_DIR
-COPY usr /usr
-COPY etc /etc
 
 RUN $BUILD_DIR/build.sh system_init
 
@@ -38,6 +36,9 @@ RUN $BUILD_DIR/build.sh install_discourse
 RUN $BUILD_DIR/build.sh install_nginx
 
 RUN $BUILD_DIR/cleanup
+
+COPY usr /usr
+COPY etc /etc
 
 VOLUME /data
 
