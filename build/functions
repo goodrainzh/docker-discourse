@@ -126,11 +126,11 @@ function install_ruby() {
 # install_discourse
 function install_discourse() {
 
-  mkdir /app && chown discourse:discourse /app -R && cd /app
+  mkdir /opt && cd /opt
 
-  curl -sLS -o /app/discourse.tar.gz  $DISCOURSE_URL && \
-  tar xzf /app/discourse.tar.gz && mv discourse-$DISCOURSE_VERSION discourse && \
-  rm -rf /app/discourse.tar.gz
+  curl -sLS -o /opt/discourse.tar.gz  $DISCOURSE_URL && \
+  tar xzf /opt/discourse.tar.gz && mv discourse-$DISCOURSE_VERSION discourse && \
+  rm -rf /opt/discourse.tar.gz
 
   cd $APP_DIR
 
@@ -140,14 +140,14 @@ function install_discourse() {
 
   chown -R discourse:discourse $APP_DIR
 
-  [ ! -d /app/discourse/log ] && gosu discourse mkdir -pv /app/discourse/log
+  [ ! -d ${APP_DIR}/log ] && gosu discourse mkdir -pv ${APP_DIR}/log
 
   for f in production.log unicorn.stderr.log unicorn.stdout.log
   do
-    [ ! -f /app/discourse/log/$f ] && touch /app/discourse/log/$f
+    [ ! -f $APP_DIR/log/$f ] && touch ${APP_DIR}/log/$f
   done
 
-  chown discourse.discourse /app/discourse/log/*
+  chown discourse.discourse ${APP_DIR}/log/*
 
 }
 
