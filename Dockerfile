@@ -5,7 +5,7 @@ RUN echo "Asia/Shanghai" > /etc/timezone;dpkg-reconfigure -f noninteractive tzda
 RUN groupadd -r -g 200 discourse && useradd -rM -u 200 -d /home/discourse -g discourse discourse
 
 ENV  GOSU_BIN="gosu discourse"
-ENV  APP_DIR="/app/discourse"
+ENV  APP_DIR="/opt/discourse"
 ENV  PERMANENT_DIR="/data"
 ENV  BUILD_DIR="/tmp/build"
 ENV  RAILS_ENV="production"
