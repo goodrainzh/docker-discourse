@@ -22,7 +22,9 @@ function system_init() {
   apt-get update && \
   apt-get install -y --no-install-recommends vim.tiny wget sudo net-tools curl \
       ca-certificates unzip runit nodejs advancecomp jpegoptim libjpeg-progs optipng \
-      $DEVELOP_PACKAGES $PACKAGES
+      $DEVELOP_PACKAGES $PACKAGES && \
+  npm install uglify-js -g &&\
+  npm install svgo -g
       
   apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y nginx
   
