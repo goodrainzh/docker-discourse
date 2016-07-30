@@ -37,11 +37,11 @@ RUN $BUILD_DIR/build.sh install_nginx
 
 RUN $BUILD_DIR/cleanup
 
-COPY usr /usr
+COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY etc /etc
 
 VOLUME /data
 
 EXPOSE 80
     
-ENTRYPOINT ["/usr/local/bin/startup"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
