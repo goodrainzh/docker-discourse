@@ -2,9 +2,14 @@
 [ $DEBUG ] && set -x
 set -e
 
+export NOTIFICATION_EMAIL=${NOTIFICATION_EMAIL:-${DISCOURSE_SMTP_USER_NAME}}
+
 cd /opt/discourse
 if [ ! -f /opt/discourse/tmp/inited ];then
- 
+  
+  # 修改notifycation_email
+  sed -i -r "s/(SiteSetting.notification_email).*/\1 = \"$NOTIFICATION_EMAIL\"/" \
+     /opt/discourse/db/fixtures/999_settings.rb
   sleep ${PAUSE:-0}
   
   for c in tmp:create db:migrate assets:precompile assets:clean uploads:clean_up avatars:clean; do
