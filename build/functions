@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e 
+set -e
 
 source $BUILD_DIR/env
 
@@ -61,22 +61,25 @@ chmod +x /usr/local/bin/chpst
   echo 'APT::Install-Recommends 0;' >> /etc/apt/apt.conf.d/01norecommends && \
   echo 'APT::Install-Suggests 0;' >> /etc/apt/apt.conf.d/01norecommends
 
+  apt-get update && \
+  apt-get install -y --no-install-recommends vim.tiny wget sudo net-tools curl \
+      ca-certificates unzip runit advancecomp jpegoptim libjpeg-progs optipng \
+      $DEVELOP_PACKAGES $PACKAGES
+
   # install postgresql-client for discourse backup database
   wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
   echo 'deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main' > /etc/apt/sources.list.d/pgdg.list && \
   apt-get update && \
-  apt-get install -y --no-install-recommends vim.tiny wget sudo net-tools curl postgresql-client-${PG_VERSION} \
-      ca-certificates unzip runit advancecomp jpegoptim libjpeg-progs optipng \
-      $DEVELOP_PACKAGES $PACKAGES
-      
+  DEBIAN_FRONTEND=noninteractive apt-get install -y postgresql-client-${PG_VERSION}
+
   curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash -
   apt-get install  -y nodejs && \
   npm install uglify-js -g && \
   npm install svgo -g
-      
+
   apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y nginx
 
-  
+
   rm -rf /var/lib/apt/lists/*
 
   # TODO check when binary packages are ready (not yet)
@@ -141,7 +144,7 @@ function install_pngcrush() {
 
 # install_pngquant
 function install_pngquant() {
-  
+
   cd /tmp
   wget -q https://github.com/goodrain-apps/docker-discourse/releases/download/package/pngquant-${PNGQUANT_VERSION}.tar.gz
   tar zxf pngquant-${PNGQUANT_VERSION}.tar.gz
@@ -203,13 +206,13 @@ function install_discourse() {
 # install_nginx
 function install_nginx() {
 
-  # mkdir nginx log , cache 
+  # mkdir nginx log , cache
   for dir in /var/log/nginx /var/nginx/cache
   do
-    [ ! -d $dir ] && mkdir -p $dir 
+    [ ! -d $dir ] && mkdir -p $dir
     chown discourse.discourse $dir
   done
-  
+
   rm -rf /etc/nginx/sites-enabled/*
 
 }
