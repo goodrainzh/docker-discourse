@@ -10,6 +10,7 @@ export DISCOURSE_DB_PASSWORD=${POSTGRESQL_PASS:-admin}
 export DISCOURSE_REDIS_HOST=${REDIS_HOST:-127.0.0.1}
 export DISCOURSE_REDIS_PORT=${REDIS_PORT:-6379}
 
+
 if [ -z "$DISCOURSE_SMTP_ADDRESS" ] || [ -z "$DISCOURSE_DEVELOPER_EMAILS" ]; then
   echo "You have not setup SMTP or Developer Emails, please set them up."
   exit 1
