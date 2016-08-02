@@ -185,11 +185,6 @@ function install_discourse() {
 
 
   chown -R discourse:discourse $APP_DIR
-  
-  # 修改版本新
-  sed -i -e "s#{{versionCheck.gitLink}}#https://github.com/discourse/discourse/tree/v${DISCOURSE_VERSION}#" \
-  -e "s#{{dash-if-empty versionCheck.installed_describe}}#${DISCOURSE_VERSION}#" \
-  $APP_DIR/app/assets/javascripts/admin/templates/version-checks.hbs
 
   [ ! -d ${APP_DIR}/log ] && gosu discourse mkdir -pv ${APP_DIR}/log
 
