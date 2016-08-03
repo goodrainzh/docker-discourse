@@ -22,7 +22,7 @@ if [ ! -f /opt/discourse/tmp/inited ];then
     
     # 如果检测到NO_ASSETS_PRECOMPILE变量就不会进行静态资源预编译工作
     if [ $NO_ASSETS_PRECOMPILE ] && [ "$c" == "assets:precompile" ];then
-      gosu discourse tar xvzf /opt/statics.tar.gz -C /opt/discourse/public/
+      gosu discourse tar xvzf /opt/statics.tar.gz -C /opt/discourse/public/ && break
     else
       gosu discourse rake "$c" && break
     fi
