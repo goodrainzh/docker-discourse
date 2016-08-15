@@ -62,7 +62,7 @@ chmod +x /usr/local/bin/chpst
   echo 'APT::Install-Suggests 0;' >> /etc/apt/apt.conf.d/01norecommends
 
   apt-get update && \
-  apt-get install -y --no-install-recommends vim.tiny wget sudo net-tools curl \
+  apt-get install -y --no-install-recommends vim.tiny wget sudo net-tools expect curl \
       ca-certificates unzip runit advancecomp jpegoptim libjpeg-progs optipng \
       $DEVELOP_PACKAGES $PACKAGES
 
