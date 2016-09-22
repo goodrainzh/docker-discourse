@@ -37,7 +37,7 @@ if [ ! -f /opt/discourse/tmp/inited ];then
   
   # init admin user
   chmod +x /tmp/init_user
-  cd /opt/discourse && /tmp/init_user $DISCOURSE_DEVELOPER_EMAILS $DISCOURSE_PASS
+  cd /opt/discourse && /usr/bin/expect /tmp/init_user $DISCOURSE_DEVELOPER_EMAILS $DISCOURSE_PASS
   
   touch /opt/discourse/tmp/inited
 fi
