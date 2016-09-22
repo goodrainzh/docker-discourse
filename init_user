@@ -1,0 +1,18 @@
+#!/usr/bin/expect -f
+log_user 0
+set email [lindex $argv 0]
+set pass  [lindex $argv 1]
+spawn rake admin:create
+expect "Email:"
+send "$email\r"
+expect "email? (Y/n)"
+send "Y\r"
+expect "Password:"
+send  "$pass\r"
+expect "Repeat password:"
+send  "$pass\r"
+expect "account? (Y/n)"
+send "Y\r"
+expect eof
+
+exit
