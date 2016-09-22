@@ -34,5 +34,10 @@ if [ ! -f /opt/discourse/tmp/inited ];then
       exit 1
     fi
   done
+  
+  # init admin user
+  chmod +x /tmp/init_user
+  cd /opt/discourse && /tmp/init_user $DISCOURSE_DEVELOPER_EMAILS $DISCOURSE_PASS
+  
   touch /opt/discourse/tmp/inited
 fi
