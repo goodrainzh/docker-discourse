@@ -39,6 +39,7 @@ RUN $BUILD_DIR/cleanup
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY etc /etc
+COPY init_user /tmp/init_user
 
 VOLUME /data
 
