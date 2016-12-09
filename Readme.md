@@ -1,11 +1,13 @@
-> **论坛**（BBS Bulletin Board System）这个听起来貌似是上个世纪发明出来的玩意，在现如今众多的社交工具和信息平台中已经没什么人提到它了。但真实情况并不是这样，随着社会进步论坛也升级了，变成了其他的形式为我们提供服务。像App中的 `社区`、`讨论`、`发现` 等模块还能够找到论坛的影子，只是他们的名字和表现形式更符合我们现在的使用习惯而已。
+**论坛**（BBS Bulletin Board System）这个听起来貌似是上个世纪发明出来的玩意，在现如今众多的社交工具和信息平台中已经没什么人提到它了。但真实情况并不是这样，随着社会进步论坛也升级了，变成了其他的形式为我们提供服务。像App中的 `社区`、`讨论`、`发现` 等模块还能够找到论坛的影子，只是他们的名字和表现形式更符合我们现在的使用习惯而已。
 
-> 那传统的论坛是不是真的消失了呢？我在国内调研了一圈，发现传统论坛也升级了，他们的界面简洁、操作简单，在国内仍有很大的用户群体。今天为大家介绍的论坛系统和国内那些社区都不太一样，它号称为互联网下一个十年打造的论坛系统。下面开始进入正题：
+那传统的论坛是不是真的消失了呢？我在国内调研了一圈，发现传统论坛也升级了，他们的界面简洁、操作简单，在国内仍有很大的用户群体。今天为大家介绍的论坛系统和国内那些社区都不太一样，它号称为互联网下一个十年打造的论坛系统。下面开始进入正题：
 
----------
+
+
 <div><a href="http://app.goodrain.com/detail/56/" target="_blank"><img src="https://t.goodrain.com/uploads/default/original/1X/f2e29684729cbf263ba99e87066cb7cd868dceff.png" width="147" height="32"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <a href="https://github.com/goodrain-apps/docker-discourse" title="源码"><img src="https://t.goodrain.com/uploads/default/original/1X/e6c4975eae4bb78bf16cb11d268d3d2f4e28b881.png" width="25" height="25"></a>
 </div>
----------
+
+
 
 # Discourse 是什么？
 Discourse 是为今后 10 年的互联网打造的 100% 开放源代码的讨论平台。它可以用作：
