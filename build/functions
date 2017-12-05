@@ -101,6 +101,7 @@ function install_gosu() {
 # install_libjemalloc    内存管理器，能够快速分配/回收内存，减少内存碎片，对多核友好，具有可伸缩性的内存分配器
 function install_libjemalloc() {
 
+  apt-get update &&\
   mkdir /tmp/jemalloc && cd /tmp/jemalloc &&\
   wget -q https://github.com/goodrain-apps/docker-discourse/releases/download/package/jemalloc-${LIBJEMALLOC_VERSION}.tar.bz2 &&\
   tar -xjf jemalloc-${LIBJEMALLOC_VERSION}.tar.bz2 && cd jemalloc-${LIBJEMALLOC_VERSION} && apt-get install gcc &&\
