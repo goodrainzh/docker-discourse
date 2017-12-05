@@ -66,7 +66,7 @@ chmod +x /usr/local/bin/chpst
       ca-certificates unzip runit advancecomp jpegoptim libjpeg-progs optipng \
       $DEVELOP_PACKAGES $PACKAGES
 
-#node.js
+  #node.js
   curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash -
   apt-get install  -y nodejs && \
   npm install uglify-js -g && \
@@ -115,7 +115,7 @@ function install_gifsicle() {
 
   cd /tmp
   wget -q https://github.com/goodrain-apps/docker-discourse/releases/download/package/gifsicle-${GIFSICLE_VERSION}.tar.gz
-  tar zxf gifsicle-${GIFSICLE_VERSION}.tar.gz
+  tar -zxf gifsicle-${GIFSICLE_VERSION}.tar.gz
   cd gifsicle-${GIFSICLE_VERSION}
   ./configure
   make install
