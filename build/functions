@@ -73,7 +73,7 @@ chmod +x /usr/local/bin/chpst
 
   apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y nginx
 
-  # install postgresql-client for discourse backup database
+  # install postgresql-client for discourse backup database      discourse后台默认数据库
   wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
   echo 'deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main' > /etc/apt/sources.list.d/pgdg.list && \
   apt-get update && \
@@ -89,7 +89,7 @@ chmod +x /usr/local/bin/chpst
       rm -fr phantomjs-1.9.8-linux-x86_64
 }
 
-# install_gosu
+# install_gosu      jvm通用编程语言
 function install_gosu() {
 
   wget -q -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
@@ -98,7 +98,7 @@ function install_gosu() {
 
 }
 
-# install_libjemalloc
+# install_libjemalloc    内存管理器，能够快速分配/回收内存，减少内存碎片，对多核友好，具有可伸缩性的内存分配器
 function install_libjemalloc() {
 
   mkdir /tmp/jemalloc && cd /tmp/jemalloc &&\
@@ -108,7 +108,7 @@ function install_libjemalloc() {
 
 }
 
-# install_gifsicle
+# install_gifsicle    是一个用于操作 GIF 图片的命令行工具
 function install_gifsicle() {
 
   cd /tmp
@@ -122,7 +122,7 @@ function install_gifsicle() {
 
 }
 
-# install_pngcrush
+# install_pngcrush 批量压缩png图片的软件，无损压缩
 function install_pngcrush() {
 
   cd /tmp
@@ -136,7 +136,7 @@ function install_pngcrush() {
 
 }
 
-# install_pngquant
+# install_pngquant  同样是png图片压缩软件，有损压缩，减少图片大小
 function install_pngquant() {
 
   cd /tmp
@@ -161,7 +161,7 @@ function install_ruby() {
     echo 'gem: --no-document' >> /usr/local/etc/gemrc &&\
     mkdir /src && cd /src && git clone https://github.com/sstephenson/ruby-build.git &&\
     cd /src/ruby-build && ./install.sh &&\
-    cd / && rm -rf /src/ruby-build && ruby-build 2.3.1 /usr/local &&\
+    cd / && rm -rf /src/ruby-build && ruby-build 2.3.4 /usr/local &&\
     gem update --system &&\
     gem install bundler &&\
     rm -rf /usr/local/share/ri/2.3.0/system
