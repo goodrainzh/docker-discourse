@@ -1,0 +1,52 @@
+#!/bin/bash
+
+set -e
+
+source $BUILD_DIR/env
+
+for dir in $MKDIRS
+  do
+    [ ! -d $dir ] && mkdir -p $dir
+  done
+
+cat > /usr/local/bin/chpst << END
+#!/bin/sh
+
+# -----------------------------------------------------------------------------
+# Copyright: 2015-2016 Jordon Bedwell - MIT
+# -----------------------------------------------------------------------------
+# Overides the default chpst command to give you a HOME if you provide
+# a user, we try to guard against attacks by confirming it to a certain set
+# of strings and rejecting it otherwise but this probably isn't super
+# bulletproof and would probably be better in Perl, Ruby or Python.
+# -----------------------------------------------------------------------------
+
+set -e
+user=
+while getopts ":u:" OPT "\$@"; do
+  case \$OPT in
+    u)
+      if [ "\$OPTARG" = "\$(echo \$OPTARG | sed -r 's/[^A-Za-z0-9\-\:_]//g')" ]; then
+        user=\$(echo \$OPTARG | awk -F: '{ print \$1 }')
+      fi
+    ;;
+  esac
+done
+
+if [ "\$user" ]; then
+  user_home=\$(eval echo ~\$user)
+  if [ "\$user_home" ] && [ "\$user_home" != "\~\$user" ]; then
+    export HOME=\$user_home
+  fi
+fi
+
+bin=\$(PATH=\$(echo \$PATH | sed -r 's,/usr/local/(s)?bin:,,g') which chpst)
+if [ -z "\$bin" ]; then
+  >&2 echo "chpst not found in path"
+  exit 1
+fi
+
+exec \$bin "\$@"
+END
+
+chmod +x /usr/local/bin/chpst
