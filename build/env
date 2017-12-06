@@ -1,7 +1,7 @@
 # update.sh auto modify
 
 export LIBJEMALLOC_VERSION=3.6.0
-export GIFSICLE_VERSION=1.8.8
+export GIFSICLE_VERSION=1.88
 export PNGCRUSH_VERSION=1.8.12
 export PNGQUANT_VERSION=2.8.0
 export GOSU_VERSION=1.7
