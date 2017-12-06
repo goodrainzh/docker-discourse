@@ -83,7 +83,7 @@ chmod +x /usr/local/bin/chpst
   rm -rf /var/lib/apt/lists/*
 
   # TODO check when binary packages are ready (not yet)
-  wget -q https://github.com/goodrain-apps/docker-discourse/releases/download/package/phantomjs-1.9.8-linux-x86_64.tar.bz2 && \
+  wget -q http://goodrain-pkg.oss-cn-shanghai.aliyuncs.com/discourse/phantomjs-2.1.1-linux-x86_64.tar.bz2 && \
       tar -xjf phantomjs-1.9.8-linux-x86_64.tar.bz2 &&\
       rm phantomjs-1.9.8-linux-x86_64.tar.bz2 &&\
       cp phantomjs-1.9.8-linux-x86_64/bin/phantomjs /bin/phantomjs &&\
@@ -114,7 +114,7 @@ function install_libjemalloc() {
 function install_gifsicle() {
 
   cd /tmp
-  wget -q https://github.com/goodrain-apps/docker-discourse/releases/download/package/gifsicle-${GIFSICLE_VERSION}.tar.gz
+  wget -q http://goodrain-pkg.oss-cn-shanghai.aliyuncs.com/discourse/gifsicle-${GIFSICLE_VERSION}.tar.gz
   tar -zxf gifsicle-${GIFSICLE_VERSION}.tar.gz
   cd gifsicle-${GIFSICLE_VERSION}
   ./configure
@@ -128,7 +128,7 @@ function install_gifsicle() {
 function install_pngcrush() {
 
   cd /tmp
-  wget -q https://github.com/goodrain-apps/docker-discourse/releases/download/package/pngcrush-${PNGCRUSH_VERSION}.tar.gz
+  wget -q http://goodrain-pkg.oss-cn-shanghai.aliyuncs.com/discourse/pngcrush-${PNGCRUSH_VERSION}.tar.gz
   tar zxf pngcrush-$PNGCRUSH_VERSION.tar.gz
   cd pngcrush-$PNGCRUSH_VERSION
   make && cp -f pngcrush /usr/local/bin
@@ -162,12 +162,12 @@ function install_ruby() {
     apt-get install git &&\
     (cd /usr/bin && rm gcc && ln -s gcc-4.9 gcc) &&\
     echo 'gem: --no-document' >> /usr/local/etc/gemrc &&\
-    mkdir /src && cd /src && git clone https://github.com/rbenv/ruby-build.git &&\
+    mkdir /src && cd /src && git clone git clone https://github.com/sstephenson/ruby-build.git &&\
     cd /src/ruby-build && ./install.sh &&\
-    cd / && rm -rf /src/ruby-build && ruby-build 2.3.4 /usr/local &&\
+    cd / && rm -rf /src/ruby-build && ruby-build 2.4.2 /usr/local &&\
     gem update --system &&\
     gem install bundler &&\
-    rm -rf /usr/local/share/ri/2.3.4/system
+    rm -rf /usr/local/share/ri/2.4.2/system
 
 }
 
