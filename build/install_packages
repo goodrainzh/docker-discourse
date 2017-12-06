@@ -9,7 +9,7 @@ echo 'APT::Install-Recommends 0;' >> /etc/apt/apt.conf.d/01norecommends && \
 
   apt-get update && \
   apt-get install -y --no-install-recommends vim.tiny wget sudo net-tools expect curl \
-      ca-certificates unzip runit advancecomp jpegoptim libjpeg-progs optipng \
+      ca-certificates unzip runit advancecomp jpegoptim optipng \
       $DEVELOP_PACKAGES $PACKAGES
 
   #node.js

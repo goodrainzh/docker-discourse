@@ -166,6 +166,7 @@ function install_ruby() {
     git clone https://github.com/sstephenson/ruby-build.git &&\
     cd /src/ruby-build && ./install.sh &&\
     cd / && rm -rf /src/ruby-build && ruby-build 2.4.2 /usr/local &&\
+  
     gem update --system &&\
     gem install bundler &&\
     rm -rf /usr/local/share/ri/2.4.2/system

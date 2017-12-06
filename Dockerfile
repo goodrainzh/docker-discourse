@@ -1,6 +1,8 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER zhouyq@goodrain.com
 
+RUN apt-get update
+Run apt-get install tzdata
 RUN echo "Asia/Shanghai" > /etc/timezone;dpkg-reconfigure -f noninteractive tzdata
 RUN groupadd -r -g 200 discourse && useradd -rM -u 200 -d /home/discourse -g discourse discourse
 
@@ -28,6 +30,8 @@ RUN $BUILD_DIR/build.sh install_gifsicle
 RUN $BUILD_DIR/build.sh install_pngcrush
 
 RUN $BUILD_DIR/build.sh install_pngquant
+
+ENV DEBUG=1
 
 RUN $BUILD_DIR/build.sh install_ruby
 

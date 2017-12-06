@@ -16,6 +16,5 @@ source $BUILD_DIR/env
     cd / && rm -rf /src/ruby-build && ruby-build 2.4.2 /usr/local &&\
   
     gem update --system &&\
-    rm -r /usr/local/ruby-2.4.2/bin/bundle
     gem install bundler &&\
     rm -rf /usr/local/share/ri/2.4.2/system
