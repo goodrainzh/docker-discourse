@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ruby:2.4.2-slim-jessie
 MAINTAINER zhouyq@goodrain.com
 
 RUN apt-get update
@@ -31,5 +31,3 @@ RUN $BUILD_DIR/install_gifsicle.sh
 RUN $BUILD_DIR/install_pngcrush.sh
 
 RUN $BUILD_DIR/install_pngquant.sh
-
-RUN $BUILD_DIR/install_ruby.sh
