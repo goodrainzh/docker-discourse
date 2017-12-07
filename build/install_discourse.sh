@@ -5,9 +5,6 @@ set -ex
 source $BUILD_DIR/env
 
   mkdir -p /opt && cd /opt
-
-  gem install hiredis -v '0.6.1' &&\
-
   curl -sLS -o /opt/statics.tar.gz $DISCOURSE_STATIC && \
   curl -sLS -o /opt/discourse.tar.gz  $DISCOURSE_URL && \
   tar xzf /opt/discourse.tar.gz && mv discourse-$DISCOURSE_VERSION discourse && \

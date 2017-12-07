@@ -33,19 +33,3 @@ RUN $BUILD_DIR/install_pngcrush.sh
 RUN $BUILD_DIR/install_pngquant.sh
 
 RUN $BUILD_DIR/install_ruby.sh
-
-RUN $BUILD_DIR/install_discourse.sh
-
-RUN $BUILD_DIR/install_nginx.sh
-
-RUN $BUILD_DIR/cleanup
-
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-COPY etc /etc
-COPY init_user /tmp/init_user
-
-VOLUME /data
-
-EXPOSE 80
-    
-ENTRYPOINT ["/docker-entrypoint.sh"]
