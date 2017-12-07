@@ -1,10 +1,12 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 source $BUILD_DIR/env
 
   mkdir -p /opt && cd /opt
+
+  gem install hiredis -v '0.6.1' &&\
 
   curl -sLS -o /opt/statics.tar.gz $DISCOURSE_STATIC && \
   curl -sLS -o /opt/discourse.tar.gz  $DISCOURSE_URL && \
@@ -13,9 +15,7 @@ source $BUILD_DIR/env
 
   cd $APP_DIR
 
-  export BUNDLE_ARGS="-j128 --without=development:test --enable-shared" && \
-  bundle install
-
+  bundle install --deployment --without test --without development
 
   chown -R discourse:discourse $APP_DIR
 

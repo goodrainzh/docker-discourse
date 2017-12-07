@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 source $BUILD_DIR/env   
     
@@ -16,5 +16,5 @@ source $BUILD_DIR/env
     cd / && rm -rf /src/ruby-build && ruby-build 2.4.2 /usr/local &&\
   
     gem update --system &&\
-    gem install bundler --force&&\
+    gem install bundler --force &&\
     rm -rf /usr/local/share/ri/2.4.2/system

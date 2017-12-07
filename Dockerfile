@@ -14,30 +14,29 @@ ENV  RAILS_ENV="production"
 ENV  UNICORN_WORKERS=3
 ENV  UNICORN_SIDEKIQS=1
 ENV  RUBY_GC_MALLOC_LIMIT=40000000
+ENV  DEBUG=1
 
 COPY build $BUILD_DIR
 
-RUN $BUILD_DIR/build.sh system_init
+RUN $BUILD_DIR/system_init.sh
 
-RUN $BUILD_DIR/build.sh install_packages
+RUN $BUILD_DIR/install_packages.sh
 
-RUN $BUILD_DIR/build.sh install_gosu
+RUN $BUILD_DIR/install_gosu.sh
 
-RUN $BUILD_DIR/build.sh install_libjemalloc
+RUN $BUILD_DIR/install_libjemalloc.sh
 
-RUN $BUILD_DIR/build.sh install_gifsicle
+RUN $BUILD_DIR/install_gifsicle.sh
 
-RUN $BUILD_DIR/build.sh install_pngcrush
+RUN $BUILD_DIR/install_pngcrush.sh
 
-RUN $BUILD_DIR/build.sh install_pngquant
+RUN $BUILD_DIR/install_pngquant.sh
 
-ENV DEBUG=1
+RUN $BUILD_DIR/install_ruby.sh
 
-RUN $BUILD_DIR/build.sh install_ruby
+RUN $BUILD_DIR/install_discourse.sh
 
-RUN $BUILD_DIR/build.sh install_discourse
-
-RUN $BUILD_DIR/build.sh install_nginx
+RUN $BUILD_DIR/install_nginx.sh
 
 RUN $BUILD_DIR/cleanup
 
